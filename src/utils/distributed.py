@@ -35,8 +35,9 @@ def init_distributed(port=37123, rank_and_world_size=(None, None)):
 
     try:
         os.environ['MASTER_PORT'] = str(port)
+        backend = None # This will find the appropriate backend automatically if using Torch>=2.6
         torch.distributed.init_process_group(
-            backend='nccl',
+            backend=backend,
             world_size=world_size,
             rank=rank
         )
